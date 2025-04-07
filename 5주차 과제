@@ -1,0 +1,112 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: CalcPage(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class CalcPage extends StatefulWidget {
+  @override
+  _CalcPageState createState() => _CalcPageState();
+}
+
+class _CalcPageState extends State<CalcPage> {
+  String result = "0";
+
+  void btnClick(String text) {
+    setState(() {
+      if (text == "C") {
+        result = "0";
+      } else if (text == "=") {
+        try {
+          // 간단히만 처리 (실제 계산은 안됨)
+          result = result;
+        } catch (e) {
+          result = "Err";
+        }
+      } else {
+        if (result == "0") {
+          result = text;
+        } else {
+          result += text;
+        }
+      }
+    });
+  }
+
+  Widget buildButton(String text) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: ElevatedButton(
+          onPressed: () => btnClick(text),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("계산기")),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            alignment: Alignment.centerRight,
+            child: Text(
+              result,
+              style: TextStyle(fontSize: 40),
+            ),
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              buildButton("7"),
+              buildButton("8"),
+              buildButton("9"),
+              buildButton("+"),
+            ],
+          ),
+          Row(
+            children: [
+              buildButton("4"),
+              buildButton("5"),
+              buildButton("6"),
+              buildButton("-"),
+            ],
+          ),
+          Row(
+            children: [
+              buildButton("1"),
+              buildButton("2"),
+              buildButton("3"),
+              buildButton("×"),
+            ],
+          ),
+          Row(
+            children: [
+              buildButton("0"),
+              buildButton("C"),
+              buildButton("="),
+              buildButton("÷"),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
