@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+// 애플리케이션의 루트 위젯
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Lifecycle & Navigation Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: FirstPage(),
+    );
+  }
+}
+
+// 첫 번째 페이지 (StatefulWidget)
+class FirstPage extends StatefulWidget {
+  @override
+  _FirstPageState createState() => _FirstPageState();
+}
+
+class _FirstPageState extends State<FirstPage> {
+  @override
+  void initState() {
+    super.initState();
+    print('FirstPage: initState');
+  }
+
+  @override
+  void dispose() {
+    print('FirstPage: dispose');
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('FirstPage: build');
+    return Scaffold(
+      appBar: AppBar(title: Text('First Page')),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Go to Second Page'),
+          onPressed: () {
+            // 두 번째 페이지로 이동
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SecondPage()),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+// 두 번째 페이지 (StatefulWidget)
+class SecondPage extends StatefulWidget {
+  @override
+  _SecondPageState createState() => _SecondPageState();
+}
+
+class _SecondPageState extends State<SecondPage> {
+  @override
+  void initState() {
+    super.initState();
+    print('SecondPage: initState');
+  }
+
+  @override
+  void dispose() {
+    print('SecondPage: dispose');
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('SecondPage: build');
+    return Scaffold(
+      appBar: AppBar(title: Text('Second Page')),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Back to First Page'),
+          onPressed: () {
+            // 첫 번째 페이지로 돌아가기
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+}
